@@ -2,6 +2,7 @@ const
 mongoose = require('mongoose')
 activitySchema = new mongoose.Schema({
     place: {type: String, required: true},
+    address: String,
     date: {type: String, required: true},
     time: {type: String, required: true},
     description: {type: String, default: 'No Description'},

@@ -19,6 +19,8 @@ const
     yelp = require('yelp-fusion'),
     clientId = process.env.CLIENT_ID,
     clientSecret = process.env.CLIENT_SECRET
+    mapId = process.env.MAPS_ID
+    geoId = process.env.GEO_API
 
 const
     PORT = process.env.PORT || 3000,
@@ -80,6 +82,10 @@ app.get('/search', (req, res) => {
         console.log(e);
     });
     })
+
+app.get('/try', (req, res) => {
+    res.render('try.ejs')
+})
 
 app.use('/trips', tripsRoutes)
 app.use('/users', usersRoutes)

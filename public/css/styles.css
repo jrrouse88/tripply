@@ -116,3 +116,10 @@
 .the-name {
     display: inline;
 }
+
+/* Map Stuff */
+
+#map {
+    height: 200px;
+    width: 100%;
+}

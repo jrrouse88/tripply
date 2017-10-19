@@ -1,13 +1,22 @@
 <h1>TRY</h1>
 
+<div id="map"></div>
 
-<% for(var i = 0; i < results.length; i += 1) { %>
-    <ul>
-        <li><%= results[i].name %>
-            <ul>
-            <li><%= results[i].price %></li>
-            <li><%= results[i].location.address1 %>, <li><%= results[i].location.city %>, <li><%= results[i].location.zip_code %></li></li></li>
-            </ul>
-        </li>
-    </ul>
-<% } %>
+<script>
+    function initMap() {
+        var uluru = {lat: 34.0195, lng: -118.4912};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 16,
+            center: uluru
+        });
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        })
+    }
+    $('body').on('click', '.activity-button', function() {
+    })
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqnz4mGqJTVkiDhbWySMVzAUxOM-484WU&callback=initMap">
+</script>
