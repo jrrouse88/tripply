@@ -375,45 +375,33 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqnz4mGqJTVkiDhbWySMVzAUx
         function populate(items) {
             //console.log(items)
             $searchRes.text('')
-            var hiRatedItems
-            /*
             items.slice(0, 5).forEach((item, i) => {
-                var theLi = $('<li>').text(item.name)
-                var innerUl = $('<ul>')
-                var innerLiRating = $('<li>').text("Rating: " + item.rating)
-                var innerLiDistance = $('<li>').text("Distance: " + item.distance)    
-                var innerLiAddress = $('<li>').text("Address: " + item.location.address1 + ", " + item.location.city + " " + item.location.zip_code)
-                var innerLiPrice = $('<li>').text("Price: " + item.price)   
-                var selectButton = $('<button>').addClass('select-button').text('Select') 
-                innerUl.append(innerLiRating, innerLiAddress, innerLiDistance, innerLiPrice)
-                theLi.append(selectButton, innerUl)
-                $searchRes.append(theLi)
-                //console.log(selectButton.parent())
-            })
-            */
-            items.slice(0, 5).forEach((item, i) => {
-                
-                var theName = $('<div>').addClass('the-name').text(item.name)
-                var theInfo = $('<div>')
-                var innerLiRating = $('<li>').text("Rating: " + item.rating)
-                var innerLiDistance = $('<li>').text("Distance away: " + (item.distance * 0.000621371192).toFixed(2) + " mi")
-                var innerLiAddress = $('<li>').text("Address: " + item.location.address1 + ", " + item.location.city + " " + item.location.zip_code)
+                var card = $('<div>').addClass('card card-width').css("style", "width: 20rem;")
+                var img = $('<img>').addClass('card-img-top').attr("src", item.image_url)
+                var cardBody = $('<div>').addClass('card-body')
+                var h4 = $('<h4>').addClass('card-title').text(item.name)
+                var ul = $('<ul>')
+                var liRating = $('<li>').text("Rating: " + item.rating)
+                var liDistance = $('<li>').text("Distance away: " + (item.distance * 0.000621371192).toFixed(2) + " mi")
+                var liAddress = $('<li>').text("Address: " + item.location.address1 + ", " + item.location.city + " " + item.location.zip_code)
+                var liSeeMore = $('<li>')
+                var yelpButton = $('<a>').attr("href", item.url).text('See More on Yelp')
+                var selectButton = $('<button>').addClass('select-button').text("Select")
                 var itemPrice = item.price
-                var innerLiPrice = checkPrice(itemPrice)
+                var liPrice = checkPrice(itemPrice)
+                liSeeMore.append(yelpButton)                    
+                ul.append(liRating, liDistance, liAddress, liPrice, liSeeMore)
+                cardBody.append(h4, selectButton, ul)
+                card.append(img, cardBody)
+                $searchRes.append(card)
                 function checkPrice(itemPrice) {
                     if(item.price) {
                         return $('<li>').text("Price: " + item.price)   
                     }
                 }
-                var selectButton = $('<button>').addClass('select-button').text('Select') 
-                theInfo.append(innerLiRating, innerLiAddress, innerLiDistance, innerLiPrice)
-                $searchRes.append(theName, selectButton, theInfo)
             })
-    
-    
         }
         
-    
         $('body').on('click', '.select-button', function() {
             var item = $(this).prev()
             selectedPlace = item.text()
