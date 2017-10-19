@@ -32,7 +32,7 @@ usersRouter.route('/signup')
         failureRedirect: '/users/signup'
     }))
 
-var userId
+//var userId
 usersRouter.route('/profile') 
 .get(isLoggedIn, (req, res) => {
     Trip.find({user: req.user._id}, (err, trips) => {
@@ -40,10 +40,10 @@ usersRouter.route('/profile')
             return new Date(a.startDate).getTime() - new Date(b.startDate).getTime() 
         })
         res.render('profile', {user: req.user, trips:sortedTrips})
-        userId = req.user._id
+        //userId = req.user._id
     })
-    userId = req.user._id
-    console.log(userId)
+    //userId = req.user._id
+    //console.log(userId)
 })
     
     .patch(isLoggedIn, (req, res) => {

@@ -3,58 +3,58 @@
         <div class='col-6'>
             <h1><%= trip.name %></h1>
         </div>
-       
+
+       <!-- Determines whether to show Edit/Add buttons (no unless the trip belongs to the current user) -->
         <% if(currentUser) { %>
             <% var currentUserId = currentUser._id.toString() %>
         <% } %>
         <% var tripUserId = trip.user %>
         <% if(loggedIn && currentUserId == tripUserId) { %>
             <% console.log(currentUserId == tripUserId) %>
-            <!-- <% console.log(currentUser._id) %>
-            <% console.log(trip.user) %> -->
         <div class='col-2'>
             <a class='btn btn-info' href='/trips/<%= trip._id %>/edit'>Edit Trip</a>
         </div>
         <div class='col-2'>
-            <button class='btn btn-primary new-activity-button'>Add Activity-M</button>
+            <button class='btn btn-primary new-activity-button'>Add Activity</button>
         </div>
         <div class='col-2'>
-            <button id="new-activity-yelp" class='btn btn-primary'>Add Activity-Y</button>
+            <button id="new-activity-yelp" class='btn btn-danger'>Search Yelp</button>
         </div>
         <% } %>
     </div>
+
 <!-- need to change the below section to be a div for each DAY
 In that day we want to see the name of each activity with the time (as list items)
 And a button that displays a modal of the activity details on click -->
-<div class='row day'>
+
     <% activities.forEach(function(a) { %>
-    <div class='col-12'>
-        <h3><%= a.date %></h3>
-    </div>
-    <div class='row activities'>
-        <div class='col-4 activity-name'>
-            <h6><%= a.place %></h6>
+        <div id='activity-container-<%= a._id %>' class='list-group row day'>
+            <div class='col-12' >
+                <h3 class='activity-date'><%= a.date %></h3>
+            </div>
+            <div class="list-group-item">
+                <div class='row activities'>
+                    <div class='col-4 activity-name'>
+                        <h6 class='activity-place'><%= a.place %></h6>
+                    </div>
+                    <div class='col-4 activity-time'>
+                        <h6 class='activity-time'><%= a.time %></h6>
+                    </div>
+                    <div class='col-2'>
+                        <h6 class='activity-description'><%= a.description %></h6>
+                    </div>
+                    <div class='col-1'>
+                        <!-- assign id to button based on objects db id to use in ajax request -->
+                        <button id="<%= a._id %>" class="btn btn-primary activity-button">See Details</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class='col-4 activity-time'>
-            <h6><%= a.time %></h6>
-        </div>
-        <div class='col-2'>
-            <h6><%= a.description %></h6>
-        </div>
-        <div class='col-1'>
-            <!-- assign id to button based on objects db id to use in ajax request -->
-            <button id="<%= a._id %>" class="activity-button">See Details</button>
-        </div>
-    </div>
     <% }) %>
-</div>
 
-<!-- <form action="/users/profile/edit">
-<button type="submit" id="update">Edit Profile</button>
-</form>	
-</div> -->
 
-<!-- MANUALLY ADD ACTIVITY MODAL --> 
+
+<!-- MODAL - ADD ACTIVITY --> 
     <div class="modal fade" id="newActivityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -96,42 +96,43 @@ And a button that displays a modal of the activity details on click -->
         </div>
     </div>
 
-<!-- YELP ADD ACTIVITY MODAL -->
-    <div class="modal fade" id="yelpActivityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Search for an activity on Yelp</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="yelp-activity-form">
-                    <div class="form-group">
-                        <label for="name">Search Term</label>
-                        <input type="text" class="form-control term" name="term">
-                    </div>
-    
-                    <div class="form-group">
-                        <label for="local">Location</label>
-                        <input type="text" class="form-control loc" name="location">
-                    </div>
 
-                    <button id="search" type="submit" class="btn btn-primary">Search</button>
-                    </form>
+<!-- MODAL - SEARCH YELP -->
+    <div class="modal fade" id="yelpActivityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Search for an activity on Yelp</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="yelp-activity-form">
+                <div class="form-group">
+                    <label for="name">Search Term</label>
+                    <input type="text" class="form-control term" name="term">
                 </div>
-                <div class="results">
-                    <ul id="search-res"></ul>   
+
+                <div class="form-group">
+                    <label for="local">Location</label>
+                    <input type="text" class="form-control loc" name="location">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-                </div>
+
+                <button id="search" type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            <div class="results">
+                <ul id="search-res"></ul>   
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
             </div>
         </div>
+    </div>
 
-<!-- ACTIVITY VIEW MODAL -->
+<!-- MODAL - ACTIVITY VIEW -->
     <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -150,11 +151,61 @@ And a button that displays a modal of the activity details on click -->
                     <section id="activityDescription"> Description: </section>
                 </div>
                 <div class="modal-footer">
+                    <% if(currentUser) { %>
+                        <% var currentUserId = currentUser._id.toString() %>
+                    <% } %>
+                    <% var tripUserId = trip.user %>
+                    <% if(loggedIn && currentUserId == tripUserId) { %>
+                        <% console.log(currentUserId == tripUserId) %>
+                        <button type="button" class="btn btn-secondary edit-activity-button" data-dismiss="modal">Edit</button>
+                    <% } %>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+
+<!-- EDIT ACTIVITY MODAL --> 
+<div class="modal fade" id="editActivityModal" tabindex="-1" role="dialog" aria-labelledby="editActivityModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Activity</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-activity-form">
+                        <div class="form-group">
+                            <label for="name">Place</label>
+                            <input id="edit-activity-place" type="text" class="form-control" name="place">
+                        </div>
+                        <div class="form-group" data-provide="datepicker">
+                                <label for="date">Date</label>
+                                <input id="editActivityDate" type="text" class="form-control" name="date">
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Time</label>
+                            <input id="editActivityTime" type="text" class="form-control" name="time">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input id="editActivityDescription" type="textarea" class="form-control" name="description">
+                        </div>
+                        <button id="edit-activity" type="submit" class="btn btn-info">Edit Activity</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <!-- NEED TO FIND A WAY TO GET THE EXACT ACTIVITY ID AND PUT IT IN THE ROUTE HERE -->
+                    <!-- <form method="post" action="/trips/<%= trip._id %>/activities/<%# activity._id %>?_method=DELETE"></form> -->
+                        <button id='delete-activity' type="button" class="btn btn-danger delete-activity-button" data-dismiss="modal">Delete Activity</button>
+                    <!-- </form> -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>    
         
 <!-- MAP SOURCE -->
 <script async defer
@@ -199,6 +250,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqnz4mGqJTVkiDhbWySMVzAUx
     
     
         $activityButton.on('click', function() {
+            
             var activityId = $(this).attr('id')
             console.log($(this).attr('id'))
                     
@@ -381,9 +433,4 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqnz4mGqJTVkiDhbWySMVzAUx
             }
         }
     })
-
-/***************************************
-MAP STUFF
-***************************************/
-
 </script>

@@ -1,25 +1,25 @@
 <div class="container">
-<h1>All Trips</h1>
-
-<!-- <% for(var i = 0; i < trips.length; i ++) { %>
-    <ul>
-        <li><a href="/trips/<%= trips[i]._id %>"><%= trips[i].name %></a> - <%= trips[i].locale %> (user: <%= trips[i].user %>) </li>
-    </ul>
-<% } %> -->
-<div class="card-box">
+    <h1>All Trips</h1>
+    
+    <!-- <% for(var i = 0; i < trips.length; i ++) { %>
+        <ul>
+            <li><a href="/trips/<%= trips[i]._id %>"><%= trips[i].name %></a> - <%= trips[i].locale %> (user: <%= trips[i].user %>) </li>
+        </ul>
+    <% } %> -->
+    <div class="card-box">
         <div class="card-box2">
-    <% for(var i = 0; i < trips.length; i ++) { %>
-        
-        <div class="card" style="width: 20rem;">
-            <img class="card-img-top" src="http://blog.kesari.in/wp-content/uploads/2017/03/Summer-suitcase.jpg" alt="Card image cap">
-            <div class="card-body">
-                <h4 class="card-title"><%= trips[i].name %></h4>
-                <p class="card-text"><%= trips[i].description %>.</p>
-                <a href="/trips/<%= trips[i]._id %>" class="btn btn-primary">See Trip</a>
-            </div>
+            <% for(var i = 0; i < trips.length; i ++) { %>
+                
+                <div class="card card-height" style="width: 20rem;">
+                    <img class="card-img-top" src="http://blog.kesari.in/wp-content/uploads/2017/03/Summer-suitcase.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title"><%= trips[i].name %></h4>
+                        <p class="card-text"><%= trips[i].description %>.</p>
+                        <a href="/trips/<%= trips[i]._id %>" class="btn btn-primary">See Trip</a>
+                    </div>
+                </div>
+            <% } %>
         </div>
-    <% } %>
     </div>
-    </div>
-
+    
 </div>

@@ -1,13 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lobster+Two');
 
-.matchy-jumbo {
-    background: rgb(109,179,242)!important; /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(109,179,242,1) 0%, rgba(84,163,238,1) 50%, rgba(54,144,240,1) 82%, rgba(54,144,240,1) 82%, rgba(30,105,222,1) 100%)!important; /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 82%,rgba(54,144,240,1) 82%,rgba(30,105,222,1) 100%)!important; /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 82%,rgba(54,144,240,1) 82%,rgba(30,105,222,1) 100%)!important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6db3f2', endColorstr='#1e69de',GradientType=0 ); /* IE6-9 */
-}
-
 /* Styles for the profile.ejs page */
 .profile {
     margin-top: 2rem; 
@@ -70,15 +62,9 @@
 }
 
 /* Home page  */
-.jumbotron {
-    background: rgba(39, 41, 41, 0.5);
-    width: 60%; 
-    margin: 5rem auto; 
-}
-
-.carousel-inner {
-    height: 100%; 
-    background-size: cover; 
+.carousel-caption {
+    position: absolute; 
+    padding-bottom: 35rem; 
 }
 
 .canyon {
@@ -86,24 +72,6 @@
     padding-bottom: 25rem!important; 
 }
 
-.browse-trips {
-    margin: 1rem auto; 
-    text-align: center; 
-}
-
-.jumbotron-alt {
-    padding-top: 10%; 
-    padding-bottom: 10%;
-    background: rgba(154, 155, 155, 0.5); 
-}
-
-.jumbo-header {
-    font-family: 'Lobster Two', cursive;
-}
-
-.jumbo-user-btn {
-    text-align: center; 
-}
 /* All Trips Page */
 
 @media only screen and (max-width:992px) {
@@ -150,13 +118,6 @@
     display: inline;
 }
 
-/* Map Stuff */
-
-#map {
-    height: 200px;
-    width: 100%;
-}
-
 .card-width {
     width: 100%;
     margin: 10px auto;
@@ -166,7 +127,4 @@
     margin: 0 auto;
     padding: 50px;
 }
-
-.login-home {
-    text-align: center; 
 }
