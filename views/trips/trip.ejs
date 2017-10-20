@@ -213,7 +213,13 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqnz4mGqJTVkiDhbWySMVzAUx
 </script>
 <script>
     $(function() {
-
+        giveMe = $('#activityAddress')
+        function getRid() {
+            if(giveMe.text() === "Address: Address Not Given") {
+               var theMap = $('#map')
+               theMap.addClass('d-none')
+            }
+        }
         // Datepicker
         $('.datepicker').datepicker()
         $('.datepicker').datepicker({
@@ -231,7 +237,6 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqnz4mGqJTVkiDhbWySMVzAUx
         // activity show stuff
             // activity detail click function
     
-    
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 16,
         });
@@ -240,7 +245,6 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqnz4mGqJTVkiDhbWySMVzAUx
         })
         var latitude
         var longitude
-    
         $('#activityModal').on('shown.bs.modal', function(){
             var uluru = {lat: latitude, lng: longitude};
             google.maps.event.trigger(map, 'resize')
@@ -250,26 +254,22 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqnz4mGqJTVkiDhbWySMVzAUx
     
     
         $activityButton.on('click', function() {
-            
             var activityId = $(this).attr('id')
             console.log($(this).attr('id'))
-                    
             // use ajax to populate the modal with data from the route specified
             $.ajax({
                 // create url by concatenating activityId 
                 url: '/trips/<%= trip._id %>/activities/' + activityId,
                 method: 'get'
             })
-            .done((res) => { 
+            .done((res) => {
                 $('#activityPlace').text('Place: ' + res.place)
                 $('#activityAddress').text('Address: ' + res.address)
                 $('#activityDate').text('Date: ' + res.date)
                 $('#activityTime').text('Time: ' + res.time)
                 $('#activityDescription').text('Description: ' + res.description)
                 var addy = res.address
-                
-                //console.log(addy)
-                
+                getRid()
                 geocoder = new google.maps.Geocoder()
                 if(geocoder) {
                     geocoder.geocode({
